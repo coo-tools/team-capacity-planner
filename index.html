@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Plan team workload using realistic focus capacity, not calendar hours." />
+    <title>Capacity Map — Team Capacity Planner</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header><a href="#">Capacity Map</a><span>Weekly team planner</span><button id="resetButton">Reset sample</button></header>
+    <main>
+      <section class="intro">
+        <div><p class="eyebrow">PEOPLE & DELIVERY</p><h1>Plan the work your team can actually deliver.</h1><p>Turn contracted hours into realistic focus capacity, assign planned work, and catch overload before the week starts.</p></div>
+        <div class="utilization"><strong id="utilization">0%</strong><span>team utilization</span><div class="meter"><i id="teamMeter"></i></div></div>
+      </section>
+      <section id="summary" class="summary"></section>
+
+      <section class="panel">
+        <div class="panel-title"><div><p class="eyebrow">WEEKLY PLAN</p><h2>Capacity by team member</h2></div><span class="hint">Focus capacity excludes meetings, admin, and interruptions.</span></div>
+        <div class="table-wrap"><table><thead><tr><th>Team member</th><th>Role</th><th>Focus capacity</th><th>Assigned</th><th>Load</th><th>Status</th><th></th></tr></thead><tbody id="memberRows"></tbody></table></div>
+      </section>
+
+      <section class="panel add-panel">
+        <div><p class="eyebrow">ADD TEAM MEMBER</p><h2>Extend the weekly plan</h2></div>
+        <form id="memberForm">
+          <label>Name<input name="name" required placeholder="e.g. Taylor" /></label>
+          <label>Role<input name="role" required placeholder="e.g. Operations" /></label>
+          <label>Contracted hours<input name="contractedHours" required type="number" min="0" max="168" value="40" /></label>
+          <label>Focus time %<input name="focusPercent" required type="number" min="0" max="100" value="75" /></label>
+          <label>Assigned hours<input name="assignedHours" required type="number" min="0" value="24" /></label>
+          <button type="submit">Add member</button>
+        </form>
+      </section>
+    </main>
+    <footer>Capacity is a constraint to design around, not a target to exceed. Data stays in your browser.</footer>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

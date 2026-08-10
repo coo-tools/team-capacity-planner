@@ -1,4 +1,4 @@
-import { availableHours, capacityStatus, loadRatio, summarizeCapacity } from "./src/core.js";
+import { availableHours, capacityCsv, capacityStatus, loadRatio, summarizeCapacity } from "./src/core.js";
 
 const STORAGE_KEY = "capacity-map-team-v1";
 const sampleMembers = [
@@ -35,4 +35,11 @@ document.querySelector("#memberForm").addEventListener("submit",(event)=>{
 });
 rows.addEventListener("click",(event)=>{const id=event.target.dataset.remove;if(!id)return;members=members.filter((member)=>member.id!==id);save();render()});
 document.querySelector("#resetButton").addEventListener("click",()=>{members=structuredClone(sampleMembers);save();render()});
+document.querySelector("#exportButton").addEventListener("click",()=>{
+  const link=document.createElement("a");
+  link.href=URL.createObjectURL(new Blob([capacityCsv(members)],{type:"text/csv"}));
+  link.download="team-capacity-plan.csv";
+  link.click();
+  URL.revokeObjectURL(link.href);
+});
 render();

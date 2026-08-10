@@ -29,3 +29,22 @@ export function summarizeCapacity(members) {
     overloaded: members.filter((member) => capacityStatus(member) === "overloaded").length,
   };
 }
+
+function csvCell(value) {
+  return `"${String(value).replaceAll('"', '""')}"`;
+}
+
+export function capacityCsv(members) {
+  const header = ["Name", "Role", "Contracted hours", "Focus %", "Focus capacity", "Assigned hours", "Load %", "Status"];
+  const records = members.map((member) => [
+    member.name,
+    member.role,
+    Number(member.contractedHours),
+    Number(member.focusPercent),
+    availableHours(member).toFixed(1),
+    Number(member.assignedHours).toFixed(1),
+    Number.isFinite(loadRatio(member)) ? Math.round(loadRatio(member) * 100) : "Unlimited",
+    capacityStatus(member),
+  ]);
+  return [header, ...records].map((record) => record.map(csvCell).join(",")).join("\n");
+}
